@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, { useState } from 'react';
 import bg from '../components/images/bg.png';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,7 +17,15 @@ const responseGoogle = response => {
   console.log(response);
 };
 const theme = createTheme();
+
 function LoginScreen() {
+  const initialvalues={email: "",password:""};
+  const [formValues,setFormValues]=useState(initialvalues);
+  const handleChange=(e)=>{
+  const {name,value}=e.target;
+  setFormValues({...formValues,[name]:value});
+  console.log(formValues);
+  }
   return (
     <ThemeProvider theme={theme}>
     <Grid container component="main" sx={{ height: '100vh' }}>
@@ -60,7 +67,10 @@ function LoginScreen() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              defaultValue={"Edmail"}
               autoFocus
+              value={formValues.email}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -71,6 +81,8 @@ function LoginScreen() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={formValues.password}
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
